@@ -9,8 +9,8 @@ for i in pins:
     GPIO.setup(pins[i], GPIO.OUT)   # Set pins' mode is output
     GPIO.output(pins[i], GPIO.HIGH) # Set pins to high(+3.3V) to off led
 
-p_R = GPIO.PWM(pins['pin_R'], 200)  # set Frequece to 200Hz
-p_G = GPIO.PWM(pins['pin_G'], 200)
+p_R = GPIO.PWM(pins['pin_R'], 50)  # set Frequece to 200Hz
+p_G = GPIO.PWM(pins['pin_G'], 50)
 
 p_R.start(0)      # Initial duty Cycle = 0(leds off)
 p_G.start(0)
