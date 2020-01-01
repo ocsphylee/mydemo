@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 import RPi.GPIO as GPIO
 
-BtnPin = 11
+BtnPin = 13
 Gpin   = 12
-Rpin   = 13
+Rpin   = 11
 
 def setup():
     GPIO.setmode(GPIO.BOARD)       # Numbers GPIOs by physical location
     GPIO.setup(Gpin, GPIO.OUT)     # Set Green Led Pin mode to output
     GPIO.setup(Rpin, GPIO.OUT)     # Set Red Led Pin mode to output
     GPIO.setup(BtnPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin's mode is input, and pull up to high level(3.3V)
-    GPIO.add_event_detect(BtnPin, GPIO.BOTH, callback=detect, bouncetime=200)
+    GPIO.add_event_detect(BtnPin, GPIO.BOTH, callback=detect)
 
 def Led(x):
     if x == 0:
@@ -25,10 +25,14 @@ def Print(x):
         print('    ***********************')
         print('    *   Button Pressed!   *')
         print('    ***********************')
+    if x == 1:
+        print('    ***********************')
+        print('    *   Button Loosen!   *')
+        print('    ***********************')
 
 def detect(chn):
-    Led(GPIO.input(BtnPin))
-    Print(GPIO.input(BtnPin))
+    Led(GPIO.input(chn))
+    Print(GPIO.input(chn))
 
 def loop():
     while True:
@@ -45,4 +49,5 @@ if __name__ == '__main__':     # Program start from here
         loop()
     except KeyboardInterrupt: 
         destroy()
+
 
